@@ -4,6 +4,7 @@
  * Integración Completa de Tareas 1 a 9
  */
 
+import 'leaflet/dist/leaflet.css';
 import './styles/main.css';
 import { renderHeader, initHeaderEvents } from './components/Header.js';
 import { renderBottomNav, initBottomNavEvents } from './components/BottomNav.js';

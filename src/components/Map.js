@@ -24,9 +24,16 @@ export function inicializarMapa(puntos = [], onSelectPunto = null, userCoords = 
   const container = document.getElementById('leaflet-map');
   if (!container) return;
 
-  // Si ya existía una instancia previa, limpiarla
+  // Limpiar cualquier referencia previa
+  if (container._leaflet_id) {
+    container._leaflet_id = null;
+  }
   if (mapInstance) {
-    mapInstance.remove();
+    try {
+      mapInstance.remove();
+    } catch (e) {
+      // Ignorar si ya fue removido
+    }
     mapInstance = null;
   }
 
