@@ -20,6 +20,7 @@ import { estaAutenticado } from './services/authService.js';
 import { renderLoginModal } from './components/LoginModal.js';
 import { guardarNuevoPunto, sumarEcoPuntos } from './utils/storage.js';
 import { mostrarToast } from './components/Toast.js';
+import { ejecutarPruebasSistema } from './utils/tests.js';
 
 /**
  * Renderiza la vista activa dentro del contenedor principal
@@ -176,3 +177,4 @@ function iniciarApp() {
 
 // Iniciar aplicación al cargar
 iniciarApp();
+ejecutarPruebasSistema();
