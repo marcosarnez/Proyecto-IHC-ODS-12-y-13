@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Defensa EcoMapa — Diapositivas Oficiales UCB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1B7A6E;
+      --primary-dark: #12544B;
+      --secondary: #1B365D;
+      --accent: #C4A35A;
+      --bg: #0F172A;
+      --surface: #1E293B;
+      --surface-card: #24334A;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Barra Superior de Controles */
+    header.deck-header {
+      background-color: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .brand-tag {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .brand-tag span.logo {
+      background: var(--primary);
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .deck-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-ctrl {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-ctrl:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .slide-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--accent);
+      background: rgba(196, 163, 90, 0.15);
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid rgba(196, 163, 90, 0.3);
+    }
+
+    /* Contenedor de Diapositivas */
+    main.deck-container {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      max-width: 1100px;
+      height: 85vh;
+      max-height: 680px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px 48px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.97) translateY(10px);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1) translateY(0);
+    }
+
+    /* Tipografía y Elementos de Diapositiva */
+    .slide-header {
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+    }
+
+    .speaker-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(27, 122, 110, 0.2);
+      color: #34D399;
+      border: 1px solid rgba(27, 122, 110, 0.4);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .speaker-pill.marcos {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60A5FA;
+      border-color: rgba(59, 130, 246, 0.4);
+    }
+
+    .slide-title {
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .slide-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Grillas y Cajas */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card h4 {
+      font-size: 16px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card p, .card ul {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .card ul {
+      padding-left: 20px;
+    }
+
+    .card ul li {
+      margin-bottom: 6px;
+    }
+
+    .card strong {
+      color: var(--text-main);
+    }
+
+    /* Barra de progreso inferior */
+    .progress-bar-container {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      width: 100%;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      width: 8%;
+      transition: width 0.3s ease;
+    }
+
+    /* Bloque de Notas del Orador */
+    .notes-box {
+      margin-top: auto;
+      background: rgba(0, 0, 0, 0.25);
+      border-left: 4px solid var(--primary);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      font-size: 13px;
+      color: #CBD5E1;
+      display: none;
+    }
+
+    .notes-box.visible {
+      display: block;
+    }
+
+    .notes-box strong {
+      color: #38BDF8;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Portada Especial */
+    .cover-slide {
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #1B365D 0%, #0F172A 70%);
+    }
+
+    .cover-logo {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--primary), #2CB5A0);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 25px rgba(27, 122, 110, 0.4);
+    }
+
+    .cover-title {
+      font-size: 46px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -0.02em;
+    }
+
+    .cover-subtitle {
+      font-size: 18px;
+      color: var(--accent);
+      margin-top: 8px;
+      max-width: 600px;
+      font-weight: 500;
+    }
+
+    .cover-meta {
+      margin-top: 32px;
+      display: flex;
+      gap: 24px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 14px 28px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    /* Tablas Técnicas */
+    table.solid-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    table.solid-table th {
+      background: rgba(27, 122, 110, 0.3);
+      color: #34D399;
+      text-align: left;
+      padding: 10px 12px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+    }
+
+    table.solid-table td {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    table.solid-table tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    table.solid-table td strong {
+      color: var(--text-main);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Encabezado con Controles -->
+  <header class="deck-header">
+    <div class="brand-tag">
+      <span class="logo">🌿</span>
+      <span>EcoMapa • UCB Santa Cruz (IHC 2-2026)</span>
+    </div>
+
+    <div class="deck-controls">
+      <button class="btn-ctrl" id="btn-toggle-notes" title="Mostrar/ocultar notas del orador (Tecla N)">
+        🗣️ Notas (N)
+      </button>
+      <button class="btn-ctrl" id="btn-prev" title="Anterior (Flecha izquierda)">◀ Ant</button>
+      <span class="slide-counter" id="slide-num">1 / 13</span>
+      <button class="btn-ctrl" id="btn-next" title="Siguiente (Flecha derecha)">Sig ▶</button>
+      <button class="btn-ctrl" id="btn-fullscreen" title="Pantalla Completa (F11)">⛶</button>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal de Diapositivas -->
+  <main class="deck-container">
+
+    <!-- Diapositiva 1: Portada -->
+    <section class="slide cover-slide active">
+      <div class="cover-logo">🌿</div>
+      <h1 class="cover-title">EcoMapa</h1>
+      <p class="cover-subtitle">Mapeo Colaborativo, Reciclaje Urbano y Navegación Peatonal</p>
+      
+      <div class="cover-meta">
+        <div>🎓 <strong>UCB Sede Santa Cruz</strong> — ISW-231 (IHC)</div>
+        <div>👥 <strong>Emanuel Justiniano & Marcos Arnez</strong></div>
+        <div>📍 <strong>Campus Norte (Km 9)</strong></div>
+      </div>
+
+      <div class="notes-box">
+        <strong>Voz: Emanuel</strong>
+        "Buenos días ingeniera y compañeros. Hoy presentamos la defensa final de nuestro proyecto EcoMapa, una solución web concebida para transformar el hábito de reciclaje en la comunidad universitaria de la UCB Sede Santa Cruz mediante principios de Interacción Humano-Computador."
+      </div>
+    </section>
+
+    <!-- Diapositiva 2: Problema y ODS -->
+    <section class="slide">
+      <div class="slide-header">
+        <span class="speaker-pill">Emanuel</span>
+        <h2 class="slide-title">1. El Problema Local y Alineación con ODS</h2>
+        <p class="slide-subtitle">La brecha entre la intención de reciclar y la acción real del estudiante cruceño</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h4>⚠️ Problemática en Santa Cruz</h4>
+            <ul>
+              <li>Más de <strong>1.800 toneladas diarias</strong> de residuos generados; menos del 6% son recuperados formalmente.</li>
+              <li>Desorientación ciudadana: <em>"¿Dónde llevo mis botellas PET?", "¿Dónde hay buzones de pilas para no contaminar el acuífero?"</em></li>
+              <li>Falta de georreferenciación y horarios confiables alrededor de centros de estudio.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>🌱 Alineación con los ODS (ONU)</h4>
+            <ul>
+              <li><strong>ODS 12 (Consumo Responsable - Meta 12.5):</strong> Reducción sustancial de residuos mediante prevención, reciclaje y separación en origen.</li>
+              <li><strong>ODS 13 (Acción por el Clima):</strong> Mitigación de emisiones de gases de efecto invernadero (GEI) mediante la cuantificación del <strong>CO₂ evitado</strong> en cada depósito.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <strong>Voz: Emanuel</strong>
+          "No construimos un mapa genérico: atacamos la falta de información geolocalizada. Conectamos la app con los ODS 12 y 13 para que el estudiante de la UCB no solo encuentre dónde reciclar, sino que dimensione en cifras reales el CO₂ y el agua que ahorra."
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 3: Figma e Heurística H6 -->
+    <section class="slide">
+      <div class="slide-header">
+        <span class="speaker-pill">Emanuel</span>
+        <h2 class="slide-title">2. Proceso de Diseño en Figma y Corrección H6</h2>
+        <p class="slide-subtitle">Evolución desde los bocetos hasta la resolución de la observación docente</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card">
+            <h4>🎨 Sistema de Diseño (Tokens)</h4>
+            <p><strong>Tipografía:</strong> Inter (Google Fonts) en escala formal (H1: 22px, H2: 18px, Body: 14px).</p>
+            <p><strong>Paleta:</strong> Verde Ecológico (#1B7A6E), Azul Institucional (#1B365D) y Oro de Puntos (#C4A35A).</p>
+          </div>
+          <div class="card">
+            <h4>📐 Wireframes a Mid-Fi</h4>
+            <p>Maquetación de las 4 pantallas nucleares:</p>
+            <ul>
+              <li><strong>Mid-Fi 01:</strong> Mapa y drawer deslizable.</li>
+              <li><strong>Mid-Fi 02:</strong> Ficha de detalle de contenedor.</li>
+              <li><strong>Mid-Fi 03:</strong> Ruta paso a paso con mapa.</li>
+              <li><strong>Mid-Fi 04:</strong> Reporte con captura GPS.</li>
+            </ul>
+          </div>
+          <div class="card" style="border-color: rgba(217, 83, 79, 0.5);">
+            <h4 style="color: #F87171;">🛡️ Corrección Docente (H6)</h4>
+            <p><strong>Observación inicial:</strong> En la primera entrega se podía enviar el formulario vacío sin validar coordenadas.</p>
+            <p><strong>Solución:</strong> Rediseño del formulario con bloqueo estricto preventivo (H6) y mensajes inline accesibles (H9).</p>
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <strong>Voz: Emanuel</strong>
+          "Tomamos muy en serio la retroalimentación de la ingeniera sobre la Heurística H6 de Nielsen. En Figma diseñamos la pantalla Mid-Fi 04 con validaciones preventivas antes del envío, asegurando que la interfaz ayude al estudiante a no cometer errores antes de que ocurran."
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 4: Gestión con GitHub (14 Issues) -->
+    <section class="slide">
+      <div class="slide-header">
+        <span class="speaker-pill">Emanuel ➔ Marcos</span>
+        <h2 class="slide-title">3. Gestión Ágil en GitHub Projects (14 Issues)</h2>
+        <p class="slide-subtitle">Trazabilidad 1 a 1 entre requerimientos, historias de usuario y commits</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h4>📋 Planificación por Sprints</h4>
+            <ul>
+              <li><strong>Sprint 1 (Tareas 1-4):</strong> Scaffold Vite, Datasets reales, utilidades de Haversine y Shell SPA.</li>
+              <li><strong>Sprint 2 (Tareas 5-8):</strong> Mapa interactivo Leaflet, Drawer reactivo, Formulario y Validación H6.</li>
+              <li><strong>Sprint 3 (Tareas 9-11):</strong> Autenticación UCB, Perfil de Usuario y Calculadora ODS 12/13.</li>
+              <li><strong>Sprint 4 (Tareas 12-14):</strong> Documentación SOLID, Tests unitarios y CI/CD en Vercel.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>🌿 14 Commits Correlativos en Main</h4>
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #38BDF8; line-height: 1.6;">
+              c2ba3d3 - fix: capas oficiales osm<br>
+              59f75a5 - ci: flujo github actions (Tarea 14)<br>
+              f565f41 - test: pruebas unitarias (Tarea 13)<br>
+              7112eb4 - docs: matriz solid en readme (Tarea 12)<br>
+              9d7d491 - feat: calculadora ods (Tarea 11)<br>
+              26b5326 - feat: gestion de perfil (Tarea 10)<br>
+              5a72c33 - feat: auth institucional (Tarea 9)...
+            </p>
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <strong>Voz: Emanuel</strong>
+          "Para garantizar una ingeniería de software limpia, no mezclamos código desordenado. Trabajamos con 14 tareas independientes con criterios de aceptación verificables. Ahora mi compañero Marcos les mostrará la arquitectura y la aplicación funcionando en vivo."
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 5: Arquitectura Técnica Mobile-First -->
+    <section class="slide">
+      <div class="slide-header">
+        <span class="speaker-pill marcos">Marcos</span>
+        <h2 class="slide-title">4. Arquitectura del Frontend y Shell Mobile-First</h2>
+        <p class="slide-subtitle">Decisiones de ingeniería orientadas a la experiencia en dispositivos móviles</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card">
+            <h4>⚡ Vite + Vanilla ES6+</h4>
+            <ul>
+              <li>Compilación ultra-rápida y bundle optimizado (cero overhead).</li>
+              <li>Enrutador SPA ligero (`router.js`) para transiciones instantáneas sin recargas.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>📱 Enfoque Mobile-First (IHC)</h4>
+            <ul>
+              <li><strong>Ley de Fitts:</strong> Todas las áreas táctiles superan los <strong>44x44 píxeles</strong>.</li>
+              <li>En escritorio se enmarca a 480px simulando un smartphone real.</li>
+              <li>Cumplimiento estricto de accesibilidad <strong>WCAG 2.1 AA</strong>.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>💾 Persistencia Desacoplada</h4>
+            <ul>
+              <li>Módulo `storage.js` protegiendo `localStorage` con bloques `try/catch`.</li>
+              <li>Versionamiento de caché (`v2`) para recargas limpias en clientes.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <strong>Voz: Marcos</strong>
+          "Comenzamos con la Tarea 1 a la 4 implementando la arquitectura con Vite. La app es Mobile-First porque el estudiante la usa caminando bajo el sol cruceño; los botones son de más de 44px según la Ley de Fitts y el enrutador SPA cambia de vista sin recargas."
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 6: Cartografía y Haversine -->
+    <section class="slide">
+      <div class="slide-header">
+        <span class="speaker-pill marcos">Marcos</span>
+        <h2 class="slide-title">5. Cartografía Leaflet y Motor Geodésico</h2>
+        <p class="slide-subtitle">Trigonometría esférica real y búsqueda fluida sin pérdida de foco</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h4>📍 Campus UCB Norte (Km 9)</h4>
+            <p>Origen geográfico oficial: <strong>[-17.6939, -63.1481]</strong>.</p>
+            <p>Dataset de 6 puntos reales en la Zona Norte (Valle Sánchez, 8vo Anillo, Hipermaxi Norte, Mangales Norte).</p>
+            <p>Capa de mosaicos oficial OpenStreetMap (sin marcas de agua ni APIs comerciales de pago).</p>
+          </div>
+          <div class="card">
+            <h4>📐 Fórmula de Haversine (`geo.js`)</h4>
+            <p>Calcula la distancia ortodrómica real en metros considerando la curvatura terrestre ($R = 6.371\text{ km}$):</p>
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #34D399;">
+              calcularDistanciaHaversine(coord1, coord2)
+            </p>
+            <p>Velocidad peatonal universitaria de <strong>4.5 km/h (75 m/min)</strong> en `calcularTiempoCaminata()`.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h4>🔍 Buscador en Vivo y Empty State</h4>
+          <p>
+            Filtrado inmutable con `.filter()` y `.toLowerCase()` que actualiza el DOM de tarjetas <strong>sin destruir el input</strong>, permitiendo escritura continua sin perder el foco del teclado en celulares.
+            Si no hay resultados, un <strong>Empty State</strong> guía al usuario en vez de dejar la pantalla rota.
+          </p>
+        </div>
+
+        <div class="notes-box">
+          <strong>Voz: Marcos</strong>
+          "No usamos distancias falsas: en geo.js programamos la fórmula esférica de Haversine desde el Campus UCB Norte. Y el buscador actualiza en tiempo real sin destruir el input del DOM, evitando que el teclado móvil se cierre."
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 7: Ficha de Detalle y Ruta con Trayectoria -->
+    <section class="slide">
+      <div class="slide-header">
+        <span class="speaker-pill marcos">Marcos</span>
+        <h2 class="slide-title">6. Detalle del Punto y Ruta con Mapa Incrustado</h2>
+        <p class="slide-subtitle">Jerarquía visual completa: trayectoria en mapa + pasos secuenciales</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h4>📋 Ficha de Detalle (Figma Mid-Fi 02)</h4>
+            <ul>
+              <li>Horarios de atención verificados (Lunes a Sábado).</li>
+              <li>Medidor de capacidad de llenado (0% a 100%).</li>
+              <li>Lista de residuos admitidos con checklist visual.</li>
+              <li>Botón directo de <em>"Guardar en favoritos"</em> y <em>"Cómo llegar"</em>.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>🧭 Asistente Peatonal (Figma Mid-Fi 03)</h4>
+            <ul>
+              <li><strong>Mapa con Trayectoria:</strong> Dibuja la polilínea verde punteada (`L.polyline`) entre Campus Norte (🎓) y el contenedor (♻) con encuadre dinámico `fitBounds`.</li>
+              <li>Métrica de recorrido: <strong>22 min a pie · 1.7 km</strong>.</li>
+              <li>Pasos secuenciales numerados con línea vertical conectora.</li>
+              <li>Botón <em>"¡He llegado!"</em> que suma <strong>+50 EcoPuntos</strong> (Heurística H1).</li>
+              <li>Botón <em>"Cancelar ruta"</em> para libertad del usuario (Heurística H3).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <strong>Voz: Marcos</strong>
+          "Al pulsar 'Cómo llegar', el estudiante ve el mapa interactivo arriba con la línea de trayectoria verde trazada entre el Campus Norte y su destino. Y al confirmar su llegada, el sistema le premia con 50 EcoPuntos aplicando la Heurística H1 de visibilidad del estado."
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 8: Prevención de Errores H6 y Reporte con GPS -->
+    <section class="slide">
+      <div class="slide-header">
+        <span class="speaker-pill marcos">Marcos</span>
+        <h2 class="slide-title">7. Prevención de Errores (H6/H9) y Reporte Ciudadano</h2>
+        <p class="slide-subtitle">Resolución rigurosa del problema observado en la Entrega 1</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card">
+            <h4>🛡️ Validación Preventiva (H6)</h4>
+            <ul>
+              <li>Imposible enviar reportes vacíos con `event.preventDefault()`.</li>
+              <li>Exige nombre descriptivo, dirección clara y al menos 1 material.</li>
+              <li><strong>Geocerca (`estaEnRangoSantaCruz`):</strong> Bloquea coordenadas fuera de Santa Cruz.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>🚨 Diagnóstico y Recuperación (H9)</h4>
+            <ul>
+              <li>Avisos de error inline en rojo accesible (`#D9534F`) junto a cada campo.</li>
+              <li>No borra la información válida ya ingresada si ocurre un error.</li>
+              <li>Controles con foco visible (`:focus`) para teclado.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>📷 Captura GPS y Fotografía</h4>
+            <ul>
+              <li>Botón GPS satelital con `navigator.geolocation` o fijado en Campus Norte.</li>
+              <li>Previsualización de foto en miniatura en tiempo real mediante `FileReader`.</li>
+              <li>Adjudicación de <strong>+50 EcoPuntos</strong> al publicar.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <strong>Voz: Marcos</strong>
+          "Aquí demostramos la solución al problema principal de la primera entrega. El formulario no permite equivocarse: si intentas enviar sin datos, salta la validación H6 indicando el error en texto claro (H9), y una geocerca evita que alguien registre puntos fuera de Santa Cruz."
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 9: Autenticación Institucional UCB -->
+    <section class="slide">
+      <div class="slide-header">
+        <span class="speaker-pill marcos">Marcos</span>
+        <h2 class="slide-title">8. Autenticación Institucional y Control de Acceso</h2>
+        <p class="slide-subtitle">Garantizando la veracidad comunitaria con correos @ucb.edu.bo</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h4>🔒 Control de Permisos por Rol</h4>
+            <p><strong>Modo Invitado:</strong> Cualquier ciudadano puede explorar el mapa, filtrar residuos, consultar horarios e iniciar rutas peatonales.</p>
+            <p><strong>Restricción para Publicar:</strong> Al presionar <em>"Reportar"</em>, se solicita inicio de sesión para evitar vandalismo o spam de contenedores falsos.</p>
+          </div>
+          <div class="card">
+            <h4>🎓 Validación de Dominio UCB</h4>
+            <p>Expresión regular estricta en `authService.js`:</p>
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #38BDF8;">
+              /^[a-zA-Z0-9._%+-]+@ucb\.edu\.bo$/i
+            </p>
+            <p>Rechaza correos comerciales (@gmail, @hotmail) con mensaje informativo.</p>
+            <p>Selector rápido para estudiantes de prueba (Valentina Roca, Marcos Arnez, Emanuel Justiniano).</p>
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <strong>Voz: Marcos</strong>
+          "Para que el mapa sea confiable para la universidad, creamos una capa de autenticación simulada en authService.js. Cualquier visitante puede explorar, pero solo quienes ingresen con correo @ucb.edu.bo pueden publicar puntos y acumular EcoPuntos."
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 10: Gamificación y ODS 12/13 -->
+    <section class="slide">
+      <div class="slide-header">
+        <span class="speaker-pill marcos">Marcos</span>
+        <h2 class="slide-title">9. Gamificación y Calculadora de Huella de Carbono</h2>
+        <p class="slide-subtitle">Transformando el reciclaje en una experiencia motivante con métricas ambientales</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h4>🧮 Calculadora de Impacto Ambiental</h4>
+            <p>En la pestaña <strong>Guía</strong>, el estudiante indica la cantidad de botellas PET, frascos de vidrio o cartón y el sistema calcula en vivo:</p>
+            <ul>
+              <li><strong>Masa reciclada (kg).</strong></li>
+              <li><strong>CO₂ evitado (kg)</strong> mediante factores oficiales de mitigación.</li>
+              <li><strong>Litros de agua preservados.</strong></li>
+            </ul>
+            <p>Botón directo para guardar el aporte en el perfil acumulando <strong>+25 EcoPuntos</strong>.</p>
+          </div>
+          <div class="card">
+            <h4>👩‍🎓 Perfil Universitario e Insignias</h4>
+            <ul>
+              <li>Avatar institucional con carrera y correo UCB.</li>
+              <li><strong>Gestión de Favoritos en vivo:</strong> Abrir detalle o eliminar con confirmación.</li>
+              <li><strong>Historial de Reportes:</strong> Lista de contenedores que el usuario dio de alta.</li>
+              <li>Insignias desbloqueables: <em>"🌱 Primer Depósito"</em>, <em>"📍 Mapeadora UCB"</em>, <em>"💧 Protectora del Piraí"</em>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <strong>Voz: Marcos</strong>
+          "La pestaña Guía conecta la interacción con el impacto ambiental. Con nuestra calculadora, el estudiante ve reflejado en cifras tangibles cuánto CO₂ evitó. Y en su Perfil puede gestionar sus favoritos y ver las insignias ganadas."
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 11: Principios SOLID -->
+    <section class="slide">
+      <div class="slide-header">
+        <span class="speaker-pill marcos">Marcos</span>
+        <h2 class="slide-title">10. Matriz de Principios SOLID en el Código</h2>
+        <p class="slide-subtitle">Buenas prácticas de ingeniería de software en la arquitectura frontend</p>
+      </div>
+
+      <div class="slide-body">
+        <table class="solid-table">
+          <thead>
+            <tr>
+              <th style="width: 25%;">Principio SOLID</th>
+              <th style="width: 50%;">Aplicación Concreta en EcoMapa</th>
+              <th style="width: 25%;">Archivo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>S (Single Responsibility)</strong></td>
+              <td>Módulos desacoplados: `geo.js` solo calcula trigonometría, `storage.js` solo persistencia, `validationService.js` solo reglas.</td>
+              <td><code>src/utils/geo.js</code></td>
+            </tr>
+            <tr>
+              <td><strong>O (Open/Closed)</strong></td>
+              <td>El catálogo de residuos y puntos en JSON permite añadir nuevos tipos (ej. TetraPak) sin alterar el motor cartográfico.</td>
+              <td><code>src/data/materiales.json</code></td>
+            </tr>
+            <tr>
+              <td><strong>L (Liskov Substitution)</strong></td>
+              <td>Todas las vistas devuelven instancias de DOM homogéneas con ciclo de vida uniforme consumidas por el router SPA.</td>
+              <td><code>src/views/*</code></td>
+            </tr>
+            <tr>
+              <td><strong>I (Interface Segregation)</strong></td>
+              <td>Servicios pequeños y especializados (`authService` solo expone login, logout y estado, sin mezclar vista).</td>
+              <td><code>src/services/authService.js</code></td>
+            </tr>
+            <tr>
+              <td><strong>D (Dependency Inversion)</strong></td>
+              <td>Los componentes reciben callbacks (`onSelectPunto`, `onVolver`) e inyección de datos sin acoplarse al DOM global.</td>
+              <td><code>src/components/Header.js</code></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="notes-box">
+          <strong>Voz: Marcos</strong>
+          "La docente puede revisar nuestro README.md y comprobar que el código no es un script desordenado: aplicamos SOLID rigurosamente, logrando un código mantenible, testeable y extensible."
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 12: Testing, CI/CD y Vercel -->
+    <section class="slide">
+      <div class="slide-header">
+        <span class="speaker-pill marcos">Marcos</span>
+        <h2 class="slide-title">11. Calidad, CI/CD y Despliegue en Producción</h2>
+        <p class="slide-subtitle">Superando la limitación de localhost con infraestructura moderna</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card">
+            <h4>🧪 Pruebas Unitarias (Tarea 13)</h4>
+            <p>Módulo `tests.js` ejecutado en consola:</p>
+            <ul>
+              <li>Precisión matemática de Haversine (~1.6 km UCB a 8vo Anillo).</li>
+              <li>Geocerca metropolitana de Santa Cruz.</li>
+              <li>Regex institucional @ucb.edu.bo.</li>
+              <li>Bloqueo preventivo H6 de formulario.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>⚙️ GitHub Actions (Tarea 14)</h4>
+            <p>Archivo `.github/workflows/ci.yml`:</p>
+            <ul>
+              <li>Ejecuta `npm install` y `npm run build` ante cada push a la rama `main`.</li>
+              <li>Garantiza cero advertencias y builds limpios en la nube.</li>
+            </ul>
+          </div>
+          <div class="card" style="border-color: rgba(27, 122, 110, 0.5);">
+            <h4 style="color: #34D399;">🌐 Producción en Vercel</h4>
+            <p><strong>URL Oficial:</strong></p>
+            <p style="font-size: 11px; word-break: break-all; color: #38BDF8;">
+              https://proyecto-ihc-ods-12-y-13.vercel.app
+            </p>
+            <p>Disponible 24/7 con certificado HTTPS y CDN global, accesible desde cualquier teléfono o laptop.</p>
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <strong>Voz: Marcos</strong>
+          "Para garantizar calidad, la Tarea 13 corre pruebas automáticas en consola y la Tarea 14 ejecuta GitHub Actions. Además, la aplicación está desplegada en internet bajo Vercel, demostrando que está 100% lista para producción."
+        </div>
+      </div>
+    </section>
+
+    <!-- Diapositiva 13: Demostración en Vivo y Conclusiones -->
+    <section class="slide">
+      <div class="slide-header">
+        <span class="speaker-pill">Emanuel & Marcos</span>
+        <h2 class="slide-title">12. Demostración en Vivo y Conclusiones</h2>
+        <p class="slide-subtitle">Una solución completa para la comunidad universitaria de Santa Cruz</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h4>🎯 Puntos de la Demo en Vivo</h4>
+            <ul>
+              <li>1. Búsqueda y filtrado reactivo sin perder el foco del teclado.</li>
+              <li>2. Ruta peatonal con <strong>mapa interactivo y polilínea verde trazada</strong>.</li>
+              <li>3. Bloqueo preventivo de errores H6 en el formulario de reporte.</li>
+              <li>4. Calculadora de huella ecológica ODS y adjudicación de EcoPuntos.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>🏆 Conclusión de IHC</h4>
+            <p>
+              EcoMapa demuestra que una aplicación no debe evaluarse solo por si <em>"funciona"</em>, sino por su capacidad de **prevenir errores**, **garantizar accesibilidad**, **ofrecer feedback visual inmediato** y **fomentar un impacto ecológico medible** en el Campus UCB.
+            </p>
+            <p style="margin-top: 10px; font-weight: 700; color: var(--accent);">
+              ¡Muchas gracias! Quedamos atentos a sus preguntas.
+            </p>
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <strong>Voz: Ambos</strong>
+          "Abrimos el espacio para la demostración interactiva y cualquier pregunta técnica o de usabilidad que desee realizarnos la docente."
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Barra de Progreso Inferior -->
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progress-fill"></div>
+  </div>
+
+  <script>
+    // Lógica Interactiva de Diapositivas
+    const slides = document.querySelectorAll('.slide');
+    const counter = document.getElementById('slide-num');
+    const progress = document.getElementById('progress-fill');
+    const btnNext = document.getElementById('btn-next');
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNotes = document.getElementById('btn-toggle-notes');
+    const btnFs = document.getElementById('btn-fullscreen');
+
+    let current = 0;
+    const total = slides.length;
+    let showNotes = false;
+
+    function updateSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= total) index = total - 1;
+      current = index;
+
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx === current);
+      });
+
+      counter.textContent = `${current + 1} / ${total}`;
+      progress.style.width = `${((current + 1) / total) * 100}%`;
+    }
+
+    btnNext.addEventListener('click', () => updateSlide(current + 1));
+    btnPrev.addEventListener('click', () => updateSlide(current - 1));
+
+    btnNotes.addEventListener('click', () => {
+      showNotes = !showNotes;
+      document.querySelectorAll('.notes-box').forEach(n => {
+        n.classList.toggle('visible', showNotes);
+      });
+      btnNotes.style.background = showNotes ? 'var(--primary)' : 'var(--surface)';
+    });
+
+    btnFs.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    });
+
+    // Control por Teclado
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        updateSlide(current + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        updateSlide(current - 1);
+      } else if (e.key.toLowerCase() === 'n') {
+        btnNotes.click();
+      } else if (e.key === 'Home') {
+        updateSlide(0);
+      } else if (e.key === 'End') {
+        updateSlide(total - 1);
+      }
+    });
+
+    updateSlide(0);
+  </script>
+</body>
+</html>
