@@ -1,0 +1,147 @@
+/* Estilos para el mapa interactivo Leaflet y Drawer de puntos */
+
+.map-view-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  flex: 1;
+}
+
+/* Buscador y Filtros */
+.search-filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 14px 10px 38px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  font-size: 13px;
+  color: var(--text-main);
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.search-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(27, 122, 110, 0.15);
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  font-size: 14px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+/* Contenedor del Mapa */
+.map-card {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  background-color: #E5E7EB;
+}
+
+#leaflet-map {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+/* Botón flotante de GPS */
+.btn-gps-float {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  z-index: 400;
+  width: 38px;
+  height: 38px;
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--color-secondary);
+  transition: all var(--transition-fast);
+}
+
+.btn-gps-float:hover {
+  background-color: var(--bg-subtle);
+  transform: scale(1.05);
+}
+
+/* Marcadores SVG Personalizados */
+.custom-pin-eco {
+  background: none;
+  border: none;
+}
+
+.pin-bubble {
+  width: 36px;
+  height: 36px;
+  background: var(--color-primary);
+  border: 2px solid white;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.pin-bubble:hover {
+  transform: rotate(-45deg) scale(1.15);
+}
+
+.pin-bubble.ucb {
+  background: var(--color-secondary);
+}
+
+.pin-bubble span {
+  transform: rotate(45deg);
+  font-size: 16px;
+}
+
+/* Pulso de Ubicación de Usuario */
+.user-pulse-marker {
+  width: 20px;
+  height: 20px;
+  background-color: #3182CE;
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(49, 130, 206, 0.7);
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(49, 130, 206, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(49, 130, 206, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(49, 130, 206, 0);
+  }
+}

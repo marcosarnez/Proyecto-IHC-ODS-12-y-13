@@ -2,6 +2,7 @@
 @import './typography.css';
 @import './layout.css';
 @import './components.css';
+@import './map.css';
 
 /* Banner de Estado del Proyecto (Tareas 1, 2 y 3) */
 .sprint-badge {
