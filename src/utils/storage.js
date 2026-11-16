@@ -7,9 +7,9 @@ import puntosIniciales from '../data/puntos.json';
 import { USUARIO_DEFAULT } from '../data/tipos.js';
 
 const CLAVES = {
-  PUNTOS: 'ecomapa_puntos_v1',
-  FAVORITOS: 'ecomapa_favoritos_v1',
-  USUARIO: 'ecomapa_usuario_v1'
+  PUNTOS: 'ecomapa_puntos_v2',
+  FAVORITOS: 'ecomapa_favoritos_v2',
+  USUARIO: 'ecomapa_usuario_v2'
 };
 
 /**

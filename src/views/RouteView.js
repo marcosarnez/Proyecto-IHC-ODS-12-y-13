@@ -24,8 +24,8 @@ export function renderRouteView(puntoId, onCancelar, onLlegada) {
     {
       num: 1,
       titulo: 'Salida de la Universidad',
-      instruccion: 'Sal por el portón principal de la UCB hacia la Av. Bush.',
-      pista: 'Usa la acera derecha y mantén atención a la ciclovía.'
+      instruccion: 'Sal por el acceso principal del Campus UCB Norte hacia la Av. Cristo Redentor.',
+      pista: 'Usa la acera lateral peatonal y mantén precaución al cruzar.'
     },
     {
       num: 2,

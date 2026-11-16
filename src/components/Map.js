@@ -11,8 +11,8 @@ let markersLayer = null;
 let routePolyline = null;
 let userMarker = null;
 
-// Coordenadas oficiales de origen: Campus UCB Santa Cruz
-export const COORD_UCB = [-17.7763, -63.1951];
+// Coordenadas oficiales de origen: Campus UCB Santa Cruz (Campus Norte Km 9)
+export const COORD_UCB = [-17.6939, -63.1481];
 
 /**
  * Inicializa o re-inicializa el mapa en el elemento #leaflet-map

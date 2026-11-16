@@ -47,7 +47,7 @@ export const USUARIO_DEFAULT = {
   email: 'valentina.roca@ucb.edu.bo',
   carrera: 'Ingeniería de Software',
   semestre: '5.º Semestre',
-  campus: 'Santa Cruz — Campus Av. Bush',
+  campus: 'Santa Cruz — Campus Norte (Km 9)',
   ecoPuntos: 350,
   kgReciclados: 14.5,
   co2PrevenidoKg: 42.1,

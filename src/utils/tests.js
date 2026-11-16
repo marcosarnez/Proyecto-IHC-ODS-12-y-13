@@ -10,10 +10,10 @@ import { validarFormularioReporte } from '../services/validationService.js';
 export function ejecutarPruebasSistema() {
   const resultados = [];
 
-  // Prueba 1: Cálculo Haversine entre Campus UCB (-17.7763, -63.1951) y 2do Anillo (-17.7735, -63.1932)
-  const d = calcularDistanciaHaversine([-17.7763, -63.1951], [-17.7735, -63.1932]);
-  const p1 = d > 200 && d < 500;
-  resultados.push({ nombre: 'Haversine Geodésico UCB ➔ 2do Anillo (~360m)', exito: p1, valor: `${d} m` });
+  // Prueba 1: Cálculo Haversine entre Campus UCB Norte (-17.6939, -63.1481) y 8vo Anillo (-17.7080, -63.1530)
+  const d = calcularDistanciaHaversine([-17.6939, -63.1481], [-17.7080, -63.1530]);
+  const p1 = d > 1000 && d < 2200;
+  resultados.push({ nombre: 'Haversine Geodésico UCB Norte ➔ 8vo Anillo (~1.6 km)', exito: p1, valor: `${d} m` });
 
   // Prueba 2: Geocerca de Santa Cruz
   const dentroSCZ = estaEnRangoSantaCruz(-17.78, -63.18);

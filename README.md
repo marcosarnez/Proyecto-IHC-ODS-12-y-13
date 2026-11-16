@@ -9,7 +9,7 @@
 ---
 
 ## 📖 Descripción del Proyecto
-**EcoMapa** es una aplicación web interactiva y responsive desarrollada bajo los principios de la **Interacción Humano-Computador (IHC)** y las **Heurísticas de Usabilidad de Jakob Nielsen**. Permite a los estudiantes y vecinos del campus UCB Santa Cruz (Av. Bush / 2do Anillo):
+**EcoMapa** es una aplicación web interactiva y responsive desarrollada bajo los principios de la **Interacción Humano-Computador (IHC)** y las **Heurísticas de Usabilidad de Jakob Nielsen**. Permite a los estudiantes y vecinos del campus UCB Santa Cruz (Campus Norte Km 9 / Zona Norte):
 1. **Localizar en tiempo real** puntos de acopio clasificados (Plástico PET, Vidrio, Papel/Cartón, Pilas/RAEE y Metales) sobre un mapa cartográfico interactivo de Leaflet.js.
 2. **Filtrar por tipo de residuo y buscar por texto** mediante chips táctiles dinámicos y buscador predictivo.
 3. **Ficha de detalle completa** con horarios de atención verificados, capacidad del contenedor y guía de separación.

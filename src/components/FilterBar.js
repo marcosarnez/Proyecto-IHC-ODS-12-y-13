@@ -17,6 +17,7 @@ export function renderFilterBar(filtroActivo = 'todos', valorBusqueda = '') {
           class="search-input" 
           placeholder="Buscar contenedor, calle o avenida..." 
           value="${valorBusqueda}"
+          autocomplete="off"
           aria-label="Buscar puntos de acopio"
         />
       </div>
@@ -51,6 +52,12 @@ export function initFilterBarEvents(onFilterChange, onSearchChange) {
   chips.forEach(chip => {
     chip.addEventListener('click', (e) => {
       const cat = e.currentTarget.getAttribute('data-filter');
+      chips.forEach(c => {
+        c.classList.remove('active');
+        c.setAttribute('aria-selected', 'false');
+      });
+      e.currentTarget.classList.add('active');
+      e.currentTarget.setAttribute('aria-selected', 'true');
       if (cat && onFilterChange) {
         onFilterChange(cat);
       }
