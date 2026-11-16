@@ -1,0 +1,30 @@
+{
+  "name": "ecomapa-ihc",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "EcoMapa — Mapeo Colaborativo y Reciclaje Urbano en Santa Cruz (Campus UCB) — ODS 12 y 13",
+  "scripts": {
+    "dev": "vite --host --port 5173",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4"
+  },
+  "devDependencies": {
+    "vite": "^5.4.2"
+  },
+  "keywords": [
+    "ecomapa",
+    "ihc",
+    "ucb",
+    "ods12",
+    "ods13",
+    "reciclaje",
+    "santa-cruz",
+    "leaflet"
+  ],
+  "author": "Marcos Arnez Pocomani & Emanuel Justiniano",
+  "license": "MIT"
+}
