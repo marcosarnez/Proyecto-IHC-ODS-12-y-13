@@ -1,0 +1,56 @@
+[
+  {
+    "id": "plastico",
+    "nombre": "Plástico",
+    "icono": "🥤",
+    "color": "#1B7A6E",
+    "colorBg": "#E6F3F1",
+    "subtipos": "PET 1, PEAD 2 (botellas de refresco, bidones, envases de yogurt)",
+    "instrucciones": "Enjuagar para quitar líquidos residuales, escurrir y aplastar para reducir volumen."
+  },
+  {
+    "id": "vidrio",
+    "nombre": "Vidrio",
+    "icono": "🍾",
+    "color": "#0284C7",
+    "colorBg": "#E0F2FE",
+    "subtipos": "Botellas y frascos enteros de cualquier color",
+    "instrucciones": "Retirar tapas de metal y corchos. No mezclar con vidrios planos de ventanas ni espejos."
+  },
+  {
+    "id": "papel",
+    "nombre": "Papel",
+    "icono": "📄",
+    "color": "#475569",
+    "colorBg": "#F1F5F9",
+    "subtipos": "Papel bond, cuadernos usados, impresiones universitarias",
+    "instrucciones": "Mantener completamente seco. Quitar clips y espirales plásticas."
+  },
+  {
+    "id": "carton",
+    "nombre": "Cartón",
+    "icono": "📦",
+    "color": "#B45309",
+    "colorBg": "#FEF3C7",
+    "subtipos": "Cajas corrugadas, cartulinas, empaques limpios",
+    "instrucciones": "Desarmar y aplanar las cajas. Cajas de pizza con grasa deben descartarse en orgánicos."
+  },
+  {
+    "id": "pilas",
+    "nombre": "Pilas / RAEE",
+    "icono": "🔋",
+    "color": "#DC2626",
+    "colorBg": "#FEE2E2",
+    "subtipos": "Pilas alcalinas AA/AAA, baterías de celular, cables",
+    "instrucciones": "Depositar en recipientes aislados secos para evitar lixiviados tóxicos."
+  },
+  {
+    "id": "metales",
+    "nombre": "Metales",
+    "icono": "🥫",
+    "color": "#C4A35A",
+    "colorBg": "#FBF7EE",
+    "subtipos": "Latas de aluminio (gaseosa/cerveza) y latas de hojalata",
+    "instrucciones": "Lavar y aplastar las latas de refresco antes de su depósito."
+  }
+]
