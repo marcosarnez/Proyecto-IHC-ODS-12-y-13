@@ -43,10 +43,10 @@ export function inicializarMapa(puntos = [], onSelectPunto = null, userCoords = 
     attributionControl: false
   }).setView(userCoords, 15);
 
-  // Capa de mosaicos moderna y limpia (CartoDB Positron)
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+  // Capa de mosaicos oficial OpenStreetMap (sin marcas de agua ni API key)
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    subdomains: 'abcd'
+    attribution: '&copy; OpenStreetMap'
   }).addTo(mapInstance);
 
   // Controles de zoom compactos
