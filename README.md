@@ -127,7 +127,7 @@ Proyecto-IHC-ODS-12-y-13/
 
 ---
 
-## 📋 Registro Histórico de Tareas y Commits
+## 📋 Registro Histórico de Tareas y Commits (14/14 Issues)
 
 1. **Tarea 1:** `feat: inicializa entorno base con vite, estructura modular y configuracion (Tarea 1)`
 2. **Tarea 2:** `feat: define dataset de puntos de acopio y categorias de reciclaje en santa cruz (Tarea 2)`
@@ -141,3 +141,5 @@ Proyecto-IHC-ODS-12-y-13/
 10. **Tarea 10:** `feat: implementa gestion de perfil universitario, favoritos interactivos e historial de reportes (Tarea 10)`
 11. **Tarea 11:** `feat: incorpora modulo interactivo de guia ods 12-13 y calculadora de impacto ecologico (Tarea 11)`
 12. **Tarea 12:** `docs: actualiza documentacion integral con matriz solid, tabla de heuristicas nielsen y cierre (Tarea 12)`
+13. **Tarea 13:** `test: implementa suite de pruebas unitarias para haversine, validacion h6 y contrastes wcag (Tarea 13)`
+14. **Tarea 14:** `ci: anade flujo de integracion continua github actions y configuracion de despliegue (Tarea 14)`
