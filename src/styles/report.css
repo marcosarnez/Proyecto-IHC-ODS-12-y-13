@@ -1,0 +1,184 @@
+/* Estilos del Formulario de Reporte Comunitario (Hi-Fi 04) */
+
+.report-view-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  animation: fadeIn 0.25s ease;
+}
+
+.report-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.report-step-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: var(--space-xs);
+}
+
+.report-step-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  font-size: 13px;
+  color: var(--text-main);
+  background-color: white;
+  transition: all var(--transition-fast);
+}
+
+.form-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(27, 122, 110, 0.15);
+  outline: none;
+}
+
+.form-input.error {
+  border-color: var(--color-danger);
+  background-color: #FFF5F5;
+}
+
+.form-error-msg {
+  font-size: 11px;
+  color: var(--color-danger);
+  font-weight: 500;
+  display: none;
+}
+
+.form-error-msg.visible {
+  display: block;
+}
+
+/* Botón de captura GPS inline */
+.gps-capture-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  padding: 9px 12px;
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.gps-capture-btn:hover {
+  background-color: #E2E8F0;
+}
+
+.gps-coords-badge {
+  font-family: monospace;
+  font-size: 11px;
+  background-color: #F7FAFC;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--border-color);
+  color: #4A5568;
+}
+
+/* Grilla de selección múltiple de materiales */
+.materials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.material-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-body);
+  transition: all var(--transition-fast);
+}
+
+.material-checkbox-label:hover {
+  background-color: #EDF2F7;
+}
+
+.material-checkbox-label.checked {
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Dropzone de Foto */
+.photo-dropzone {
+  border: 2px dashed #CBD5E0;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: center;
+  background-color: #FAFAFA;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.photo-dropzone:hover {
+  border-color: var(--color-primary);
+  background-color: #F0F9F8;
+}
+
+.photo-preview-img {
+  max-width: 100%;
+  max-height: 180px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  box-shadow: var(--shadow-sm);
+  display: none;
+}
+
+.photo-preview-img.visible {
+  display: block;
+}

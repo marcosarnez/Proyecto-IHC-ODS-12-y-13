@@ -5,6 +5,7 @@
 @import './map.css';
 @import './detail.css';
 @import './route.css';
+@import './report.css';
 
 /* Banner de Estado del Proyecto (Tareas 1, 2 y 3) */
 .sprint-badge {
